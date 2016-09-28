@@ -8,6 +8,8 @@ I decided to add a basic <b>keyframes animation</b> to the opening sequence, whi
 
 <h3>Rules:</h3>
 The game is simple enough: a random number 1-100 is chosen, along with three random landmine numbers. Your goal is to guess the secret number without triggering a landmine. You get as many guesses as you need, and you will be told whether your guess is too high or low. The three divs in the middle of the screen correspond to the landmine values, and will change color based on the proximity of your guess.
+<<<<<<< HEAD
 
 <h3>Version 2.0</h3>
 I'm cleaning up the code with what I know now. Using closures to contain most of the game logic and commands, and using as little jQuery as is necessary. I will also be implementing bootstraps for a cleaner layout.
+
