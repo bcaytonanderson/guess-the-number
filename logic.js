@@ -6,11 +6,16 @@ var game = (function() {
   var mine3;
   var mineArray = [];
 
+  var closestMine = null;
+  var mineDistance = null;
+  var currentGuess = null;
+
+//Generates random number between 1-100
   function generator(item) {
     return item = Math.floor(Math.random() * (1, 101) + 1);
     
   };
-
+//Checks that none of the landmine numbers are the same as the landmine.
   function failsafe(array, target) {
     array.forEach(function(num) {
       if (num === target) {
@@ -22,6 +27,7 @@ var game = (function() {
     });
   };
 
+//Resets all numbers, the mine array, and takes a callback (which is the failsafe function)
   function resetBoard(callback) {
     secretNumber = generator(secretNumber);
     mine1 = generator(mine1);
@@ -31,6 +37,25 @@ var game = (function() {
     callback(mineArray, secretNumber);
   };
 
+//Check's the user's input against the mineArray to see which mine is closest.
+  function findClosestMine() {
+    closestMine = 100;
+    for (var i = 0; i < mineArray.length; i++) {
+      var difference = Math.abs(currentGuess - mineArray[i]);
+      if (difference < closestMine) {
+        mineDistance = difference;
+        closestMine = i;
+      };
+    };
+  };
+
+//An event handler that styles the mine boxes according to their value's proximity to the currentGuess.
+  function newGuess() {
+    
+
+  }
+
+//Available methods to the game object.
   return {
     generate: function() {
       generator(secretNumber);
