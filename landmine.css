@@ -62,6 +62,7 @@ body {font-size: 14pt; background-color:#f4f4f4;}
 
 /*Allows each to be faded in in order.*/
 #bottom, #bottom1, #bottom2, #bottom3, #bottom4, #bottom5, #bottom6, #bottom7, #bottom8 {
+  color: #000;
   display: none;
 }
 

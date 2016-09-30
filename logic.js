@@ -64,16 +64,16 @@ var game = (function() {
     for (var i = 0; i < mineArray.length; i++) {
       if (Math.abs(currentGuess - mineArray[i]) === mineDistance) {
         switch(mineDistance) {
-          case 1: $("#" + i).attr("class", "landmine distance1");
+          case 1: $("#" + i).attr('class', 'landmine distance1');
                   break;
           case 2:
-          case 3;
-          case 4;
-          case 5: $("#" + i).attr("class" "landmine distance5");
+          case 3:
+          case 4:
+          case 5: $("#" + i).attr('class', 'landmine distance5');
                   break;
           default: $("#" + i).attr("class", "landmine");
         };
-      };
+      }
       else {
         $("#" + i).attr("class", "landmine");
       };
@@ -103,15 +103,15 @@ var game = (function() {
 
     if (mineDistance === 0) {
       loss();
-    };
+    }
     else if (currentGuess > secretNumber) {
       proximityWarning();
       $('#bottom5').fadeIn(300).delay(1000).fadeOut(300);
-    };
+    }
     else if (currentGuess < secretNumber) {
       proximityWarning();
       $('#bottom4').fadeIn(300).delay(1000).fadeOut(300);
-    };
+    }
     else {
       win();
     }
@@ -120,14 +120,15 @@ var game = (function() {
 //Available methods to the game object.
   return {
     generate: function() {
-      generator(secretNumber);
-      generator(mine1);
-      generator(mine2);
-      generator(mine3);
-      failsafe(mineArray, secretNumber);
+      // generator(secretNumber);
+      // generator(mine1);
+      // generator(mine2);
+      // generator(mine3);
+      // failsafe(mineArray, secretNumber);
+      resetBoard(failsafe, styleReset);
     },
     reset: function() {
-      resetBoard(failsafe);
+      resetBoard(failsafe, styleReset);
     },
     lognumbers: function() {
       return [mine1, mine2, mine3, secretNumber, mineArray];  
@@ -150,12 +151,18 @@ window.onload = function() {
   });
 
   game.generate();
+
   console.log(game.lognumbers());
+
+  $('#user-input').click(function() {$(this).val(' ');});
 
   $("#submit-button").on("click", function(e) {
     game.newGuess();
-
   });
+
+  $("#reset-button").on("click", function(e) {
+    game.reset();
+  })
 };
 
 
