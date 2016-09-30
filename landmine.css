@@ -36,17 +36,17 @@ body {font-size: 14pt; background-color:#f4f4f4;}
 
 /*Container for full page*/
 #bigbox {
-  width: 60%;
-  min-width: 50em;
+/*  width: 60%;*/
+/*  min-width: 50em;*/
   margin: 0 auto;
   margin-top: 5em;
   padding: 0 0 1.5em 0;
 }
 
-#container {
+#minecontainer {
   background-color:#aaa; 
-  width:50em; 
-  margin:0 auto; 
+/*  width:50em; */
+  margin: 0 auto; 
   padding: 0; 
   position: relative;
 }
@@ -81,6 +81,7 @@ body {font-size: 14pt; background-color:#f4f4f4;}
 /*The box which contains the .landmine divs*/
 .mines {
   background-color: #aaa;
+  margin: 0 auto;
   -webkit-transition: background-color .5s;
 }
 
@@ -94,7 +95,7 @@ body {font-size: 14pt; background-color:#f4f4f4;}
 /*Boxes which represent each of the three landmines. Background color to change depending on user input.*/
 .landmine {
   float: left;  
-  width:14.66em; 
+  /*width:14.66em; */
   text-align: center;
   vertical-align: middle;
   display: inline-block; 

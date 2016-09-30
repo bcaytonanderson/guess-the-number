@@ -1,27 +1,39 @@
 <html>
 <head>
   <title>Guess the Number!</title>
+  
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js">
+  </script>
+
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+    <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
   <link rel="stylesheet" type="text/css" href="landmine.css">
-  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 </head>
 
 <body>
- <div id="bigbox">
-  <div id="container" class="clear">
+ <div id="bigbox" class="container">
+  <div id="minecontainer" class="col-xs-10 clear">
     <div class="clear mines">
 
-      <div id="0" class="landmine left">
+      <div class="col-xs-4 landmine left" id="0" >
         <label id="left" class="loss landminelabel">!</label>
         <label class="wintext landminelabel">YOU</label>
+         
       </div>
 
-      <div id="1" class="landmine middle">
+      <div id="1" class="col-xs-4 landmine middle">
         <label id="mid" class="loss landminelabel">!</label>
+         
       </div>
 
-      <div id="2" class="landmine right">
+      <div id="2" class="col-xs-4 landmine right">
         <label id="right" class="loss landminelabel">!</label>
         <label class="wintext landminelabel">WIN</label>
+        
       </div>
 
       <div class="clear"> </div>
