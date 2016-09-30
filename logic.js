@@ -6,7 +6,6 @@ var game = (function() {
   var mine3;
   var mineArray = [];
 
-  var closestMine = null;
   var mineDistance = null;
   var currentGuess = null;
 
@@ -15,6 +14,7 @@ var game = (function() {
     return item = Math.floor(Math.random() * (1, 101) + 1);
     
   };
+
 //Checks that none of the landmine numbers are the same as the landmine.
   function failsafe(array, target) {
     array.forEach(function(num) {
@@ -27,17 +27,27 @@ var game = (function() {
     });
   };
 
-//Resets all numbers, the mine array, and takes a callback (which is the failsafe function)
-  function resetBoard(callback) {
+//Resets all styles for beginning of game, for use in resetBoard function.
+  function styleReset() {
+    $(".landmine").attr('class', 'landmine');
+    $("#user-input, #submit-button").prop("disabled", false);
+    $('.readout').fadeOut(300);
+    $('#user-input').val(' ');
+    $('#bottom8').delay(300).fadeIn(300).delay(500).fadeOut(300);
+  }
+
+//Resets all numbers, the mine array, and takes two callbacks (which are the failsafe function and the styleReset function)
+  function resetBoard(failsafeCallback, styleResetCallback) {
     secretNumber = generator(secretNumber);
     mine1 = generator(mine1);
     mine2 = generator(mine2);
     mine3 = generator(mine3);
     mineArray = [mine1, mine2, mine3];
-    callback(mineArray, secretNumber);
+    failsafeCallback(mineArray, secretNumber);
+    styleResetCallback();
   };
 
-//Check's the user's input against the mineArray to see which mine is closest.
+//Check's the user's input against the mineArray to see which mine is closest. The distance is calculated by absolute value.
   function findClosestMine() {
     closestMine = 100;
     for (var i = 0; i < mineArray.length; i++) {
@@ -49,11 +59,63 @@ var game = (function() {
     };
   };
 
-//An event handler that styles the mine boxes according to their value's proximity to the currentGuess.
-  function newGuess() {
-    
+//An event handler that adds classes and, thus, CSS styles the mine boxes according to their value's proximity to the currentGuess. In the switch, Cases2-4 are left blank so that they will execute the same code block as Case 5. The else case ensures that the default style is applied to a box if it is no longer within 5 of the currentGuess.
+  function proximityWarning() {
+    for (var i = 0; i < mineArray.length; i++) {
+      if (Math.abs(currentGuess - mineArray[i]) === mineDistance) {
+        switch(mineDistance) {
+          case 1: $("#" + i).attr("class", "landmine distance1");
+                  break;
+          case 2:
+          case 3;
+          case 4;
+          case 5: $("#" + i).attr("class" "landmine distance5");
+                  break;
+          default: $("#" + i).attr("class", "landmine");
+        };
+      };
+      else {
+        $("#" + i).attr("class", "landmine");
+      };
+    };
+  };
 
-  }
+//A function for a loss scenario, using jQ to apply appropriate styles.
+  function loss() {
+    $("#user-input, #submit-button").prop("disabled", true);
+    $(".landmine").addClass("loss");
+    $(".loss").fadeIn(300);
+    $('#bottom7').show(100);
+  };
+
+//A function for a win scenario.
+  function win() {
+      $('#submit-button').attr('disabled', 'disabled');
+      $('.landmine').addClass("win");
+      $('.wintext').fadeIn(300);
+      $('#bottom6').fadeIn(300);
+  };
+
+//When a guess is submitted by the user, this function checks all conditions and performs the proper response- either win or loss, or whether the guess is higher or lower than the number (the latter two of which also call the proximityWarning function).
+  function submitGuess() {
+    currentGuess = $("#user-input").val();
+    findClosestMine();
+
+    if (mineDistance === 0) {
+      loss();
+    };
+    else if (currentGuess > secretNumber) {
+      proximityWarning();
+      $('#bottom5').fadeIn(300).delay(1000).fadeOut(300);
+    };
+    else if (currentGuess < secretNumber) {
+      proximityWarning();
+      $('#bottom4').fadeIn(300).delay(1000).fadeOut(300);
+    };
+    else {
+      win();
+    }
+  };
 
 //Available methods to the game object.
   return {
@@ -68,16 +130,41 @@ var game = (function() {
       resetBoard(failsafe);
     },
     lognumbers: function() {
-    return [mine1, mine2, mine3, secretNumber, mineArray];  
+      return [mine1, mine2, mine3, secretNumber, mineArray];  
+    },
+    newGuess: function() {
+      submitGuess();
     }
   };
 })();
 
-game.generate();
-game.reset();
-console.log(game.lognumbers());
+
+//Once the page loads, this jQ function flashes the instructions at the bottom of the game field.
+window.onload = function() {
+  $('#bottom').delay(500).fadeIn(500).delay(500).fadeOut(500, function() {
+    $('#bottom1').fadeIn(500).delay(500).fadeOut(500, function() {
+      $('#bottom2').fadeIn(500).delay(500).fadeOut(500, function() {
+        $('#bottom3').fadeIn(500).delay(500).fadeOut(500);
+      });
+    });
+  });
+
+  game.generate();
+  console.log(game.lognumbers());
+
+  $("#submit-button").on("click", function(e) {
+    game.newGuess();
+
+  });
+};
 
 
+
+
+//===============================================
+//===============================================
+
+//This is the legacy code for this project- done to practice jQuery events. I've left it intact for comparison.
 
 // var secretNumber = parseInt(Math.random() * 100, 10) + 1;
 // var landmine1 = parseInt(Math.random() * 100, 10) + 1;
