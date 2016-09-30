@@ -2,16 +2,32 @@
 <head>
   <title>Guess the Number!</title>
   <link rel="stylesheet" type="text/css" href="landmine.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+  <script src="logic.js"></script>
 </head>
+
 <body>
  <div id="bigbox">
   <div id="container" class="clear">
     <div class="clear mines">
-      <div id="0" class="landmine left"><label id="left" class="landminelabel">!</label><label class="wintext landminelabel">YOU</label></div>
-      <div id="1" class="landmine middle"><label id="mid" class="landminelabel">!</label></div>
-      <div id="2" class="landmine right"><label id="right" class="landminelabel">!</label><label class="wintext landminelabel">WIN</label></div>
+
+      <div id="0" class="landmine left">
+        <label id="left" class="loss landminelabel">!</label>
+        <label class="wintext landminelabel">YOU</label>
+      </div>
+
+      <div id="1" class="landmine middle">
+        <label id="mid" class="loss landminelabel">!</label>
+      </div>
+
+      <div id="2" class="landmine right">
+        <label id="right" class="loss landminelabel">!</label>
+        <label class="wintext landminelabel">WIN</label>
+      </div>
+
       <div class="clear"> </div>
       <div class="clear spacer"> </div>
+
       <div id="user-interface" class="clear">
         <input id="reset-button" type="button" value="reset" />      
         <input id="user-input" type="test" value="take a guess..."/>
@@ -19,6 +35,7 @@
       </div>
     </div>
   </div>
+
   <div id="bottombox">
     <label id="bottom" class="readout">let's play a game</label>
     <label id="bottom1" class="readout">guess the secret number</label>
@@ -31,112 +48,6 @@
     <label id="bottom8" class="readout">new game, new numbers</label>
   </div>
 </div>
-
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-<script type="text/javascript">
-
-var secretNumber = parseInt(Math.random() * 100, 10) + 1;
-var landmine1 = parseInt(Math.random() * 100, 10) + 1;
-var landmine2 = parseInt(Math.random() * 100, 10) + 1;
-var landmine3 = parseInt(Math.random() * 100, 10) + 1;
-var landminesArray = [landmine1, landmine2, landmine3];
-
-var closestLandmine = null;
-var landmineDistance = null;
-var currentGuess = null;
-
-function findClosestLandmine() {
-  landmineDistance = 100;
-  for (var i in landminesArray) {
-    var difference = (Math.abs(currentGuess - landminesArray[i]));
-    if (difference < landmineDistance) {
-      landmineDistance = difference;
-      closestLandmine = i;
-    }
-  }
-}
-
-function newGuess() {
-  if (this.id == closestLandmine) {
-    switch(landmineDistance) {
-    case 1:
-      $(this).css('background-color', '#fa001b');
-      break;
-    case 2:
-    case 3:
-    case 4:
-    case 5:
-      $(this).css('background-color',  '#F4B70D');
-      break;
-    defaultkey: "value", 
-      $(this).css('background-color',  '#ddd');
-      break;
-    }
-  }
-  else {$(this).css('background-color', '#ddd');}
-}
-
-
-
-$('#user-input').click(function() {$(this).val(' ');});
-
-$('.landmine').on("new-guess", newGuess);
-
-$('#submit-button').on('click', function (e) {
-  currentGuess = $('#user-input').val();
-  findClosestLandmine();
-    if (landmineDistance == 0) {
-      $('#submit-button').attr('disabled', 'disabled');
-      $('.landminelabel').fadeIn(300);
-      $('#bottom7').show(100);
-      $('.landmine').css({'background-color':'#000000'});
-      $('.mines').css('background-color', '#fa001b');
-    }
-
-    else if (currentGuess > secretNumber) { 
-      $('.landmine').trigger('new-guess');
-      $('#bottom5').fadeIn(300).delay(1000).fadeOut(300);
-    }
-
-    else if (currentGuess < secretNumber) {
-      $('.landmine').trigger('new-guess'); 
-      $('#bottom4').fadeIn(300).delay(1000).fadeOut(300);
-    }
-    
-    else { 
-      $('#submit-button').attr('disabled', 'disabled');
-      $('.landmine').css('background-color', 'white');
-      $('.wintext').fadeIn(300);
-      $('#bottom6').fadeIn(300);
-      } 
-});
-
-$('#reset-button').on('click', function (e) {
-  secretNumber = parseInt(Math.random() * 100, 10) + 1;
-  landmine1 = parseInt(Math.random() * 100, 10) + 1;
-  landmine2 = parseInt(Math.random() * 100, 10) + 1;
-  landmine3 = parseInt(Math.random() * 100, 10) + 1;
-  landminesArray = [landmine1, landmine2, landmine3];
-
-  $('.landminelabel').removeAttr('style');
-  $('.mines').removeAttr('style');
-  $('.landmine').removeAttr('style');
-  $('.readout').fadeOut(300);
-  $('#submit-button').removeAttr('disabled', 'disabled');
-  $('#user-input').val(' ');
-  $('#bottom8').delay(300).fadeIn(300).delay(500).fadeOut(300);
-});
-
-
-$('#bottom').delay(500).fadeIn(500).delay(500).fadeOut(500, function() {
-  $('#bottom1').fadeIn(500).delay(500).fadeOut(500, function() {
-    $('#bottom2').fadeIn(500).delay(500).fadeOut(500, function() {
-      $('#bottom3').fadeIn(500).delay(500).fadeOut(500);
-    });
-  });
-});
-
-</script>
 
 </body>
 </html>
