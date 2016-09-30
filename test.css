@@ -1,10 +1,3 @@
-body {
-	display: flex;
-	justify-content: center;
-	flex-direction: column;
-	font-size: 14pt; 
-	background-color:#f4f4f4;
-}
 
 .clear:before, 
 .clear:after {
@@ -16,6 +9,8 @@ body {
   clear: both;
 }
 
+
+/*Bootstrap overrides*/
 .container-fluid {
 	margin-right: 5vw;
 	margin-left: 5vw;
@@ -32,33 +27,149 @@ body {
 	padding-left: 0px;
 }
 
+/*DOM styles*/
+body {
+	display: flex;
+	justify-content: center;
+	flex-direction: column;
+	font-size: 14pt; 
+	background-color:#f4f4f4;
+}
+
+/*Container for entire UI*/
 #game-board {
 	height: 60vh;
 	background-color: #ddd;
 
 }
 
+/*Container for landmine elements*/
 #mine-container {
 	display: inline-flex;
 	align-items: center;
-	height: 53vh;
+	height: 52vh;
+	padding-left: 1.6vh;
+	padding-right: 1.6vh;
 }
 
 .landmine {
 	align-self: center;
 	flex-grow: 1;
 	background-color: #fff;
-	height: 95%;
-	margin-left: 1vh; 
-	margin-right: 1vh;
+	height: 90%;
+	margin-left: .8vh; 
+	margin-right: .8vh;
+	-webkit-transition: background-color .5s;
+  -webkit-animation: pulse 1s 6s;
 }
 
+/*Sets extra margin for the middle landmine element for uniform spacing*/
+#2 {
+	margin-left: 1.6vh;
+	margin-right: 1.6vh;
+}
+
+/*Classes to be applied to .landmine if distance to mine = 1, or =< 5*/
+.distance1 {
+  background-color: #d9534f;
+}
+.distance5 {
+  background-color: #f4b70d;
+}
+
+/*Styles for text revealed within .landmine boxes for win/loss scenario.*/
+.landminelabel {
+  display: none;
+}
+
+/*Class to be enabled in case of loss.*/
+.loss {
+  color: #f4b70d;
+  background-color: #000;
+  font-weight: 400;
+  font-family: Verdana;
+}
+
+/*Class to be enabled in case of win*/
+.wintext {
+  color: #fff;
+  background-color: #27ae60;
+  font-family: Helvetica;
+}
+
+
+/*A white line to separate the landmine-container from the user-controls*/
+#spacer {
+	height:1vh;
+	background-color: #fff;
+}
+
+/*Contains the elements for playing the game.*/
 #user-controls {
 	display: inline-flex;
 	align-items: center;
 	height: 7vh;
+	padding-left: 1.6vh;
+	padding-right: 1.6vh;
+}
+
+.control {
+	margin-left: .8vh;
+	margin-right: .8vh;
 }
 
 #reset-button, #user-input, #submit-button {
 	align-self: center;
+}
+
+#user-input {
+	text-align: center;
+	padding-left: 1.6vh;
+	padding-right: 1.6vh;
+}
+
+/*Input override to remove the default spinner*/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
+}
+
+
+/*Container for messages displayed at the bottom of the .mines container*/
+#bottombox {
+  text-align: center;
+  margin: 1em auto;
+  font-size: 2em;
+  /* font-size: 1.5em; */
+}
+
+/*Allows each to be faded in in order.*/
+#bottom, #bottom1, #bottom2, #bottom3, #bottom4, #bottom5, #bottom6, #bottom7, #bottom8 {
+  color: #000;
+  display: none;
+}
+
+/*Text displayed when user hits a mine*/
+#bottom7 {color: #fa001b;}
+
+/*Keyframe animation for new game instance.*/
+@-webkit-keyframes pulse {
+  0%, 100% {
+    background-color: #dddddd;
+  
+  }
+  30% {
+    background-color: #fa001b;
+  }
+}
+
+/*Sets color values for text fade and appear effects.*/
+@keyframes appear {
+  0% {color: #ddd}
+  100% {color: black}
+}
+@keyframes fade {
+  0% {color: black}
+  100% {color: #ddd}
 }

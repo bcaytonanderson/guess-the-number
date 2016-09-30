@@ -20,34 +20,50 @@
 <body>
 
 <div class="container-fluid" id="game-board">
-	<div class="row col-xs-12" id="mine-container">
+	<div class="container col-xs-12" id="mine-container">
 		<div id="0" class="col-xs-12 col-md-4 landmine">
-
+        <label id="left" class="loss landminelabel">!</label>
+        <label class="wintext landminelabel">YOU</label>
 		</div>
 
 		<div id="1" class="col-xs-12 col-md-4 landmine">
-
+        <label id="mid" class="loss landminelabel">!</label>
 		</div>
 
 		<div id="2" class="col-xs-12 col-md-4 landmine">
-
+        <label id="right" class="loss landminelabel">!</label>
+        <label class="wintext landminelabel">WIN</label>
 		</div>
 	</div>
 
-	<div class="row col-xs-12" id="user-controls">
-		<div class="col-xs-12 col-md-4">
-			<button type="button" id="reset-button" class="btn btn-primary btn-lg btn-block">Reset</button>
+	<div class="container col-xs-12" id="spacer"></div>
+
+	<div class="container col-xs-12" id="user-controls">
+		<div class="col-xs-12 col-md-4 control">
+			<button type="button" id="reset-button" class="btn btn-danger btn-lg btn-block">RESET</button>
 		</div>
 
-		<div class="col-xs-12 col-md-4">
-			<input type="text" id="user-input" class="form-control input-lg" placeholder="Guess a number..."> 
+		<div class="col-xs-12 col-md-4 control">
+			<input type="number" id="user-input" class="form-control input-lg" placeholder="Guess a number..."> 
 		</div>
 
-		<div class="col-xs-12 col-md-4">
-			<button type="button" id="submit-button" class="btn btn-primary btn-lg btn-block">Submit</button>
+		<div class="col-xs-12 col-md-4 control">
+			<button type="button" id="submit-button" class="btn btn-success btn-lg btn-block">SUBMIT</button>
 		</div>
 	</div>
 
+  <div id="bottombox">
+    <label id="bottom" class="readout">let's play a game</label>
+    <label id="bottom1" class="readout">guess the secret number</label>
+    <label id="bottom2" class="readout">somewhere between 1 - 100</label>
+    <label id="bottom3" class="readout">and look out for the landmines</label>
+    <label id="bottom4" class="readout">higher</label>
+    <label id="bottom5" class="readout">lower</label>
+    <label id="bottom6" class="readout">you got it!</label>
+    <label id="bottom7" class="readout">LANDMINE!</label>
+    <label id="bottom8" class="readout">new game, new numbers</label>
+  </div>
+<script src="logic.js"></script>
 
 </div>
 

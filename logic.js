@@ -9,10 +9,19 @@ var game = (function() {
   var mineDistance = null;
   var currentGuess = null;
 
+
+//Resets all styles for beginning of game, for use in resetBoard function.
+  function styleReset() {
+    $(".landmine").attr('class', 'landmine');
+    $("#user-input, #submit-button").prop("disabled", false);
+    $('.readout').fadeOut(300);
+    $('#user-input').val(' ');
+    $('#bottom8').delay(300).fadeIn(300).delay(500).fadeOut(300);
+  };
+
 //Generates random number between 1-100
-  function generator(item) {
-    return item = Math.floor(Math.random() * (1, 101) + 1);
-    
+  function generate(item) {
+    return item = Math.floor(Math.random() * (1, 100) + 1);
   };
 
 //Checks that none of the landmine numbers are the same as the landmine.
@@ -27,14 +36,15 @@ var game = (function() {
     });
   };
 
-//Resets all styles for beginning of game, for use in resetBoard function.
-  function styleReset() {
-    $(".landmine").attr('class', 'landmine');
-    $("#user-input, #submit-button").prop("disabled", false);
-    $('.readout').fadeOut(300);
-    $('#user-input').val(' ');
-    $('#bottom8').delay(300).fadeIn(300).delay(500).fadeOut(300);
-  }
+//Generates values for mines and secret number, and creates mineArray.
+  function start(failsafeCallback) {
+    secretNumber = generate(secretNumber);
+    mine1 = generate(mine1);
+    mine2 = generate(mine2);
+    mine3 = generate(mine3);
+    mineArray = [mine1, mine2, mine3];
+    failsafeCallback(mineArray, secretNumber);
+  };
 
 //Resets all numbers, the mine array, and takes two callbacks (which are the failsafe function and the styleReset function)
   function resetBoard(failsafeCallback, styleResetCallback) {
@@ -54,6 +64,7 @@ var game = (function() {
       var difference = Math.abs(currentGuess - mineArray[i]);
       if (difference < closestMine) {
         mineDistance = difference;
+        console.log(mineDistance);
         closestMine = i;
       };
     };
@@ -63,6 +74,7 @@ var game = (function() {
   function proximityWarning() {
     for (var i = 0; i < mineArray.length; i++) {
       if (Math.abs(currentGuess - mineArray[i]) === mineDistance) {
+        console.log("correct" + i);
         switch(mineDistance) {
           case 1: $("#" + i).attr('class', 'landmine distance1');
                   break;
@@ -75,6 +87,7 @@ var game = (function() {
         };
       }
       else {
+        console.log(i);
         $("#" + i).attr("class", "landmine");
       };
     };
@@ -119,13 +132,9 @@ var game = (function() {
 
 //Available methods to the game object.
   return {
-    generate: function() {
-      // generator(secretNumber);
-      // generator(mine1);
-      // generator(mine2);
-      // generator(mine3);
-      // failsafe(mineArray, secretNumber);
-      resetBoard(failsafe, styleReset);
+    start: function() {
+      start(failsafe);
+      // resetBoard(failsafe, styleReset);
     },
     reset: function() {
       resetBoard(failsafe, styleReset);
@@ -142,7 +151,7 @@ var game = (function() {
 
 //Once the page loads, this jQ function flashes the instructions at the bottom of the game field.
 window.onload = function() {
-  $('#bottom').delay(500).fadeIn(500).delay(500).fadeOut(500, function() {
+  $('#bottom').delay(600).fadeIn(500).delay(500).fadeOut(500, function() {
     $('#bottom1').fadeIn(500).delay(500).fadeOut(500, function() {
       $('#bottom2').fadeIn(500).delay(500).fadeOut(500, function() {
         $('#bottom3').fadeIn(500).delay(500).fadeOut(500);
@@ -150,7 +159,7 @@ window.onload = function() {
     });
   });
 
-  game.generate();
+  game.start();
 
   console.log(game.lognumbers());
 

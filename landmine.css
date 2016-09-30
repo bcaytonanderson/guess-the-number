@@ -1,28 +1,6 @@
-html {height:100%;}
+html {height:100vh;}
 
 body {font-size: 14pt; background-color:#f4f4f4;}
-
-/*.arrow {
-  width: 80px;
-  margin: 0 auto;
-  margin-top: 72px;
-}
-
-.line {
-  margin: 0 auto;
-  width: 25px;
-  background-color: blue;
-  height: 90px;
-}
-
-.point {
-  margin: 0 auto;
-  width: 0;
-  height: 0;
-  border-bottom: 40px solid blue;
-  border-left: 30px solid transparent;
-  border-right: 30px solid transparent;
-}*/
 
 .clear:before, 
 .clear:after {
