@@ -59,44 +59,14 @@ var game = (function() {
   };
 
 //Check's the user's input against the mineArray to see which mine is closest. The distance is calculated by absolute value.
-  function findClosestMine() {
-    // closestMine = 100;
-    // for (var i = 0; i < mineArray.length; i++) {
-    //   var difference = Math.abs(currentGuess - mineArray[i]);
-    //   if (difference < closestMine) {
-    //     mineDistance = difference;
-    //     console.log(mineDistance);
-    //     closestMine = i;
-    //   }
-    // }
+  function findMineDistances() {
     for (var i = 0; i < mineArray.length; i++) {
       mineDistances[i] = Math.abs(currentGuess - mineArray[i]);
     };
-    console.log(mineDistances);
-    return mineDistances; 
   };
 
 //An event handler that adds classes and, thus, CSS styles the mine boxes according to their value's proximity to the currentGuess. In the switch, Cases2-4 are left blank so that they will execute the same code block as Case 5. The else case ensures that the default style is applied to a box if it is no longer within 5 of the currentGuess.
   function proximityWarning() {
-    // for (var i = 0; i < mineArray.length; i++) {
-    //   if (Math.abs(currentGuess - mineArray[i]) === mineDistance) {
-    //     console.log("correct" + i);
-    //     switch(mineDistance) {
-    //       case 1: $("#" + i).attr('class', 'landmine distance1');
-    //               break;
-    //       case 2:
-    //       case 3:
-    //       case 4:
-    //       case 5: $("#" + i).attr('class', 'landmine distance5');
-    //               break;
-    //       default: $("#" + i).attr("class", "landmine");
-    //     };
-    //   }
-    //   else {
-    //     console.log(i);
-    //     $("#" + i).attr("class", "landmine");
-    //   };
-    // };
     for (var i = 0; i < mineDistances.length; i++) {
       switch(mineDistances[i]) {
             case 1: $("#" + i).attr('class', 'landmine distance1');
@@ -130,9 +100,8 @@ var game = (function() {
 //When a guess is submitted by the user, this function checks all conditions and performs the proper response- either win or loss, or whether the guess is higher or lower than the number (the latter two of which also call the proximityWarning function).
   function submitGuess() {
     currentGuess = $("#user-input").val();
-    mineDistances = findClosestMine();
-    console.log(mineDistances);
-
+    findMineDistances();
+    
     if (mineDistances.includes(0)) {
       loss();
     }
@@ -153,7 +122,6 @@ var game = (function() {
   return {
     start: function() {
       start(failsafe);
-      // resetBoard(failsafe, styleReset);
     },
     reset: function() {
       resetBoard(failsafe, styleReset);
