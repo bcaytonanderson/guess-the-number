@@ -11,39 +11,44 @@
     <!-- Latest compiled and minified JavaScript -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-  <link rel="stylesheet" type="text/css" href="landmine.css">
+  <link rel="stylesheet" type="text/css" href="test.css">
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
 </head>
 
 <body>
- <div id="bigbox" class="container">
-  <div id="minecontainer" class="col-xs-10 clear">
-    <div class="clear mines">
 
-      <div class="col-xs-4 landmine left" id="0" >
+<div class="container-fluid" id="game-board">
+  <div class="container col-xs-12" id="mine-container">
+    <div id="0" class="col-xs-12 col-md-4 landmine">
         <label id="left" class="loss landminelabel">!</label>
         <label class="wintext landminelabel">YOU</label>
-         
-      </div>
+    </div>
 
-      <div id="1" class="col-xs-4 landmine middle">
+    <div id="1" class="col-xs-12 col-md-4 landmine">
         <label id="mid" class="loss landminelabel">!</label>
-         
-      </div>
+    </div>
 
-      <div id="2" class="col-xs-4 landmine right">
+    <div id="2" class="col-xs-12 col-md-4 landmine">
         <label id="right" class="loss landminelabel">!</label>
         <label class="wintext landminelabel">WIN</label>
-        
-      </div>
+    </div>
+  </div>
 
-      <div class="clear"> </div>
-      <div class="clear spacer"> </div>
+  <div class="container col-xs-12" id="spacer"></div>
 
-      <div id="user-interface" class="clear">
-        <input id="reset-button" type="button" value="reset" />      
-        <input id="user-input" type="test" value="take a guess..."/>
-        <input id="submit-button" type="button" value="submit" />
-      </div>
+  <div class="container col-xs-12" id="user-controls">
+    <div class="col-xs-12 col-md-4 control">
+      <button type="button" id="reset-button" class="btn btn-danger btn-lg btn-block">RESET</button>
+    </div>
+
+    <div class="col-xs-12 col-md-4 control">
+      <input type="number" id="user-input" class="form-control input-lg" placeholder="Guess a number..."> 
+    </div>
+
+    <div class="col-xs-12 col-md-4 control">
+      <button type="button" id="submit-button" class="btn btn-success btn-lg btn-block">SUBMIT</button>
     </div>
   </div>
 
@@ -58,8 +63,9 @@
     <label id="bottom7" class="readout">LANDMINE!</label>
     <label id="bottom8" class="readout">new game, new numbers</label>
   </div>
-</div>
 <script src="logic.js"></script>
+
+</div>
 
 </body>
 </html>

@@ -1,6 +1,3 @@
-html {height:100vh;}
-
-body {font-size: 14pt; background-color:#f4f4f4;}
 
 .clear:before, 
 .clear:after {
@@ -12,92 +9,69 @@ body {font-size: 14pt; background-color:#f4f4f4;}
   clear: both;
 }
 
-/*Container for full page*/
-#bigbox {
-/*  width: 60%;*/
-/*  min-width: 50em;*/
-  margin: 0 auto;
-  margin-top: 5em;
-  padding: 0 0 1.5em 0;
+
+/*Bootstrap overrides*/
+.container-fluid {
+  margin-right: 5vw;
+  margin-left: 5vw;
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
-#minecontainer {
-  background-color:#aaa; 
-/*  width:50em; */
-  margin: 0 auto; 
-  padding: 0; 
-  position: relative;
-}
-
-/*Container for messages displayed at the bottom of the .mines container*/
-#bottombox {
-  text-align: center;
-  margin: 1em auto;
-  font-size: 2em;
-  /* font-size: 1.5em; */
-}
-
-
-/*Allows each to be faded in in order.*/
-#bottom, #bottom1, #bottom2, #bottom3, #bottom4, #bottom5, #bottom6, #bottom7, #bottom8 {
-  color: #000;
-  display: none;
-}
-
-/*Text displayed when user hits a mine*/
-#bottom7 {color: #fa001b;}
-
-
-.spacer {
-  width: 100%;
-  height: .5em;
-  content: ' ';
-  background-color: #f4f4f4;
+.row {
   margin: 0 auto;
 }
 
-/*The box which contains the .landmine divs*/
-.mines {
-  background-color: #aaa;
-  margin: 0 auto;
-  -webkit-transition: background-color .5s;
+.col-xs-12, .col-md-4 {
+  padding-right: 0px;
+  padding-left: 0px;
 }
 
-/*#title {
-  margin:0 auto; 
-  text-align:center; 
-  width:100%; 
-  font-size:18px; 
-}*/
+/*DOM styles*/
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  font-size: 14pt; 
+  background-color:#f4f4f4;
+}
 
-/*Boxes which represent each of the three landmines. Background color to change depending on user input.*/
-.landmine {
-  float: left;  
-  /*width:14.66em; */
-  text-align: center;
-  vertical-align: middle;
-  display: inline-block; 
-  margin: 1.5em .75em 1.5em .75em; 
-  height: 14.66em;
+/*Container for entire UI*/
+#game-board {
+  height: 60vh;
   background-color: #ddd;
-  position: relative;
-  line-height: 14.66em;
+
+}
+
+/*Container for landmine elements*/
+#mine-container {
+  display: inline-flex;
+  align-items: center;
+  height: 52vh;
+  padding-left: 1.6vh;
+  padding-right: 1.6vh;
+}
+
+.landmine {
+  align-self: center;
+  flex-grow: 1;
+  background-color: #fff;
+  height: 90%;
+  margin-left: .8vh; 
+  margin-right: .8vh;
   -webkit-transition: background-color .5s;
   -webkit-animation: pulse 1s 6s;
 }
 
-/*Sets correct spacing for left/right .landmine boxes.*/
-.left {
-  margin-left: 1.5em;
-}
-.right {
-  float: right;
-  margin-right: 1.5em;
+/*Sets extra margin for the middle landmine element for uniform spacing*/
+#2 {
+  margin-left: 1.6vh;
+  margin-right: 1.6vh;
 }
 
 /*Classes to be applied to .landmine if distance to mine = 1, or =< 5*/
 .distance1 {
-  background-color: #fa001b;
+  background-color: #d9534f;
 }
 .distance5 {
   background-color: #f4b70d;
@@ -112,7 +86,6 @@ body {font-size: 14pt; background-color:#f4f4f4;}
 .loss {
   color: #f4b70d;
   background-color: #000;
-  font-size: 12em;
   font-weight: 400;
   font-family: Verdana;
 }
@@ -121,60 +94,64 @@ body {font-size: 14pt; background-color:#f4f4f4;}
 .wintext {
   color: #fff;
   background-color: #27ae60;
-  font-size: 4em;
   font-family: Helvetica;
 }
 
-/*Container for submit-button, reset-button, and user-input box*/
-#user-interface {
-  width:100%; 
-  margin:0 auto; 
-  padding: 0; 
-  margin-top: 0;
-  margin-bottom: 0;
+
+/*A white line to separate the landmine-container from the user-controls*/
+#spacer {
+  height:1vh;
+  background-color: #fff;
 }
 
-#submit-button {
-  font-size: 1em;
-  height: 2em;
-  float: left;
-  width: 14.66em;
-  margin: 1em 1.5em 1em .75em;
-  border: none;
+/*Contains the elements for playing the game.*/
+#user-controls {
+  display: inline-flex;
+  align-items: center;
+  height: 7vh;
+  padding-left: 1.6vh;
+  padding-right: 1.6vh;
 }
 
-#reset-button {
-  font-size: 1em;
-  height: 2em;
-  float: left;
-  width: 14.66em;
-  margin: 1em .75em .1em 1.5em;
-  border: none;
+.control {
+  margin-left: .8vh;
+  margin-right: .8vh;
+}
+
+#reset-button, #user-input, #submit-button {
+  align-self: center;
 }
 
 #user-input {
-  font-size: 1em;
-  color: #aaa;
   text-align: center;
-  height: 2em;
-  float: left;
-  width: 14.66em;
-  margin: 1em .75em 1em .75em;
-  padding: 0 0 0 0;
-  border: none;
+  padding-left: 1.6vh;
+  padding-right: 1.6vh;
+}
+
+/*Input override to remove the default spinner*/
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }
 
 
-/*.landmine.left {
-  -webkit-animation: pulse 2s 12s;
+/*Container for messages displayed at the bottom of the .mines container*/
+#bottombox {
+  text-align: center;
+  margin: 1em auto;
+  font-size: 2em;
+  /* font-size: 1.5em; */
 }
-.landmine.middle {
-  -webkit-animation: pulse 2s 12.2s;
-}
-.landmine.right {
-  -webkit-animation: pulse 2s 12.4s;
-}*/
 
+/*Allows each to be faded in in order.*/
+#bottom, #bottom1, #bottom2, #bottom3, #bottom4, #bottom5, #bottom6, #bottom7, #bottom8 {
+  color: #000;
+  display: none;
+}
+
+/*Text displayed when user hits a mine*/
+#bottom7 {color: #fa001b;}
 
 /*Keyframe animation for new game instance.*/
 @-webkit-keyframes pulse {
