@@ -4,9 +4,10 @@ var game = (function() {
   var mine1;
   var mine2;
   var mine3;
-  var mineArray = [];
+  var mineArray = [0,0,0];
 
-  var mineDistance = null;
+  // var mineDistance = null;
+  var mineDistances = [];
   var currentGuess = null;
 
 
@@ -28,7 +29,7 @@ var game = (function() {
   function failsafe(array, target) {
     array.forEach(function(num) {
       if (num === target) {
-        return num = generator(num);
+        return num = generate(num);
       }
       else {
         console.log("check");
@@ -59,38 +60,55 @@ var game = (function() {
 
 //Check's the user's input against the mineArray to see which mine is closest. The distance is calculated by absolute value.
   function findClosestMine() {
-    closestMine = 100;
+    // closestMine = 100;
+    // for (var i = 0; i < mineArray.length; i++) {
+    //   var difference = Math.abs(currentGuess - mineArray[i]);
+    //   if (difference < closestMine) {
+    //     mineDistance = difference;
+    //     console.log(mineDistance);
+    //     closestMine = i;
+    //   }
+    // }
     for (var i = 0; i < mineArray.length; i++) {
-      var difference = Math.abs(currentGuess - mineArray[i]);
-      if (difference < closestMine) {
-        mineDistance = difference;
-        console.log(mineDistance);
-        closestMine = i;
-      };
+      mineDistances[i] = Math.abs(currentGuess - mineArray[i]);
     };
+    console.log(mineDistances);
+    return mineDistances; 
   };
 
 //An event handler that adds classes and, thus, CSS styles the mine boxes according to their value's proximity to the currentGuess. In the switch, Cases2-4 are left blank so that they will execute the same code block as Case 5. The else case ensures that the default style is applied to a box if it is no longer within 5 of the currentGuess.
   function proximityWarning() {
-    for (var i = 0; i < mineArray.length; i++) {
-      if (Math.abs(currentGuess - mineArray[i]) === mineDistance) {
-        console.log("correct" + i);
-        switch(mineDistance) {
-          case 1: $("#" + i).attr('class', 'landmine distance1');
-                  break;
-          case 2:
-          case 3:
-          case 4:
-          case 5: $("#" + i).attr('class', 'landmine distance5');
-                  break;
-          default: $("#" + i).attr("class", "landmine");
+    // for (var i = 0; i < mineArray.length; i++) {
+    //   if (Math.abs(currentGuess - mineArray[i]) === mineDistance) {
+    //     console.log("correct" + i);
+    //     switch(mineDistance) {
+    //       case 1: $("#" + i).attr('class', 'landmine distance1');
+    //               break;
+    //       case 2:
+    //       case 3:
+    //       case 4:
+    //       case 5: $("#" + i).attr('class', 'landmine distance5');
+    //               break;
+    //       default: $("#" + i).attr("class", "landmine");
+    //     };
+    //   }
+    //   else {
+    //     console.log(i);
+    //     $("#" + i).attr("class", "landmine");
+    //   };
+    // };
+    for (var i = 0; i < mineDistances.length; i++) {
+      switch(mineDistances[i]) {
+            case 1: $("#" + i).attr('class', 'landmine distance1');
+                    break;
+            case 2:
+            case 3:
+            case 4:
+            case 5: $("#" + i).attr('class', 'landmine distance5');
+                    break;
+            default: $("#" + i).attr("class", "landmine");      
         };
-      }
-      else {
-        console.log(i);
-        $("#" + i).attr("class", "landmine");
-      };
-    };
+    };    
   };
 
 //A function for a loss scenario, using jQ to apply appropriate styles.
@@ -112,9 +130,10 @@ var game = (function() {
 //When a guess is submitted by the user, this function checks all conditions and performs the proper response- either win or loss, or whether the guess is higher or lower than the number (the latter two of which also call the proximityWarning function).
   function submitGuess() {
     currentGuess = $("#user-input").val();
-    findClosestMine();
+    mineDistances = findClosestMine();
+    console.log(mineDistances);
 
-    if (mineDistance === 0) {
+    if (mineDistances.includes(0)) {
       loss();
     }
     else if (currentGuess > secretNumber) {
@@ -163,7 +182,7 @@ window.onload = function() {
 
   console.log(game.lognumbers());
 
-  $('#user-input').click(function() {$(this).val(' ');});
+  $('#user-input').click(function() {$(this).val('');});
 
   $("#submit-button").on("click", function(e) {
     game.newGuess();
