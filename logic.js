@@ -92,7 +92,7 @@ var game = (function() {
 //A function for a win scenario.
   function win() {
       $('#submit-button').attr('disabled', 'disabled');
-      $('.landmine').addClass("win");
+      $('.landmine').addClass("winText");
       $('.wintext').fadeIn(300);
       $('#bottom6').fadeIn(300);
   };
@@ -101,7 +101,7 @@ var game = (function() {
   function submitGuess() {
     currentGuess = $("#user-input").val();
     findMineDistances();
-    
+
     if (mineDistances.includes(0)) {
       loss();
     }

@@ -53,6 +53,7 @@ body {
 }
 
 .landmine {
+  display: flex;
   align-self: center;
   flex-grow: 1;
   background-color: #fff;
@@ -79,21 +80,28 @@ body {
 
 /*Styles for text revealed within .landmine boxes for win/loss scenario.*/
 .landminelabel {
+  align-self: center;
+  margin: 0 auto;
   display: none;
 }
 
 /*Class to be enabled in case of loss.*/
 .loss {
+  text-align: center;
   color: #f4b70d;
   background-color: #000;
+  font-size: 4em;
   font-weight: 400;
   font-family: Verdana;
 }
 
 /*Class to be enabled in case of win*/
 .wintext {
+  text-align:center;
   color: #fff;
   background-color: #27ae60;
+  font-size: 2em;
+  font-weight: 400;
   font-family: Helvetica;
 }
 
