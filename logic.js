@@ -14,6 +14,7 @@ var game = (function() {
 //Resets all styles for beginning of game, for use in resetBoard function.
   function styleReset() {
     $(".landmine").attr('class', 'landmine');
+    $(".landminelabel").hide();
     $("#user-input, #submit-button").prop("disabled", false);
     $('.readout').fadeOut(300);
     $('#user-input').val(' ');
