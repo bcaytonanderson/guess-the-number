@@ -49,10 +49,10 @@ var game = (function() {
 
 //Resets all numbers, the mine array, and takes two callbacks (which are the failsafe function and the styleReset function)
   function resetBoard(failsafeCallback, styleResetCallback) {
-    secretNumber = generator(secretNumber);
-    mine1 = generator(mine1);
-    mine2 = generator(mine2);
-    mine3 = generator(mine3);
+    secretNumber = generate(secretNumber);
+    mine1 = generate(mine1);
+    mine2 = generate(mine2);
+    mine3 = generate(mine3);
     mineArray = [mine1, mine2, mine3];
     failsafeCallback(mineArray, secretNumber);
     styleResetCallback();
